@@ -1,0 +1,58 @@
+from dataclasses import dataclass, asdict
+import pandas as pd
+
+@dataclass
+class LehrbuchAuditEintrag:
+    seite: int
+    zitat_kurz: str
+    logischer_fehlschluss: str
+    epistemischer_befund: str
+    verfassungs_konsequenz: str
+
+audit_data = [
+    LehrbuchAuditEintrag(
+        seite=2,
+        zitat_kurz="Geordnete Schritte zur Problemlösung",
+        logischer_fehlschluss="Kuchenback-Reductio",
+        epistemischer_befund="Verwechslung von Handlungsanweisung/Rezept mit Naturgesetz (Thermodynamik).",
+        verfassungs_konsequenz="Administrative Ritual-Abarbeitung ersetzt objektiven Beweis."
+    ),
+    LehrbuchAuditEintrag(
+        seite=2,
+        zitat_kurz="Verhalten als Anpassung an Umwelt",
+        logischer_fehlschluss="Zirkuläre Tautologie / Ignoranz der Negentropie",
+        epistemischer_befund="Widerstand gegen Entropie wird ignoriert; Nischenkonstruktion entfällt.",
+        verfassungs_konsequenz="Pathologisierung von Widerstand und Grundrechte-Wahrnehmung als 'Fehlanpassung'."
+    ),
+    LehrbuchAuditEintrag(
+        seite=5,
+        zitat_kurz="Diagnose Schüchternheit beim WG-Partner",
+        logischer_fehlschluss="Nominal-Tautologie (A = A) / Virtus Dormitiva",
+        epistemischer_befund="Deskriptives Etikett wird im Zirkel als eigene Ursache behauptet.",
+        verfassungs_konsequenz="Pseudodiagnosen ohne Kausalität als Basis für Entmündigung."
+    ),
+    LehrbuchAuditEintrag(
+        seite=5,
+        zitat_kurz="Sherlock Holmes als Methoden-Ideal",
+        logischer_fehlschluss="Fiktions-Zirkel & Duhem-Quine-Bruch",
+        epistemischer_befund="Doyle schrieb von hinten nach vorne; Unterdeterminiertheit der Realität ignoriert.",
+        verfassungs_konsequenz="Gutachter erfindet fiktionale Kriminalplots statt messbarer Tatsachen."
+    ),
+    LehrbuchAuditEintrag(
+        seite=6,
+        zitat_kurz="Verhaltens-Wahrscheinlichkeiten berechnen",
+        logischer_fehlschluss="Verstoß gegen Kolmogorov-Axiome",
+        epistemischer_befund="Kein geschlossener Wahrscheinlichkeitsraum; nicht-ergodisches System Mensch.",
+        verfassungs_konsequenz="Gefährdungsprognosen als Willkür-Lotto zu Lasten von Art. 2 & 104 GG."
+    ),
+    LehrbuchAuditEintrag(
+        seite=6,
+        zitat_kurz="Verhaltenskontrolle zur Lebensverbesserung",
+        logischer_fehlschluss="Paternalistischer Zwang / Skinner-Totalitarismus",
+        epistemischer_befund="Technokratischer Übergriff: Umerziehung wird als Wohltat deklariert.",
+        verfassungs_konsequenz="Verstoß gegen Art. 1 Abs. 1 GG (Objektformel der Menschenwürde)."
+    )
+]
+
+df_audit = pd.DataFrame([asdict(e) for e in audit_data])
+df_audit
