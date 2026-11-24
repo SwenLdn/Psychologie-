@@ -1,0 +1,406 @@
+from dataclasses import dataclass, field
+from typing import List, Optional
+
+@dataclass
+class LehrbuchZitat:
+    text: str
+    seite: int
+    quelle: str
+
+@dataclass
+class Teilgebiet:
+    name: str
+    beschreibung: str
+
+@dataclass
+class KritikPunkt:
+    kategorie: str
+    titel: str
+    argumentation: str
+
+@dataclass
+class KontrollMechanismus:
+    instanz: str
+    funktion: str
+    status: str
+
+@dataclass
+class SystemischeBruchlinie:
+    titel: str
+    beschreibung: str
+    verfassungs_bezug: str
+
+@dataclass
+class VerwaltungsRealitaet:
+    stelle: str
+    behoerde: str
+    mindestqualifikation: str
+    aufgaben: List[str]
+    kontrollen: List[KontrollMechanismus] = field(default_factory=list)
+    bruchlinien: List[SystemischeBruchlinie] = field(default_factory=list)
+
+@dataclass
+class LehrbuchStruktur:
+    titel_de: str
+    titel_orig: str
+    erstveroeffentlichung_jahr: int
+    autoren: List[str]
+    teilgebiete: List[Teilgebiet] = field(default_factory=list)
+    zitate: List[LehrbuchZitat] = field(default_factory=list)
+    kritik: List[KritikPunkt] = field(default_factory=list)
+    praxis_beispiele: List[VerwaltungsRealitaet] = field(default_factory=list)
+
+# Komplettes, verfeinertes und erweitertes Modell
+psychologie_lehrbuch = LehrbuchStruktur( 
+    titel_de="Psychologie",
+    titel_orig="Psychology and Life",
+    erstveroeffentlichung_jahr=1937,
+    autoren=["Floyd L. Ruch", "Philip Zimbardo", "Richard J. Gerrig"],
+    teilgebiete=[
+        Teilgebiet("Wahrnehmung", "Untersuchung von Reizaufnahme und -verarbeitung."),
+        Teilgebiet("Lernen", "Erwerb von Verhaltensweisen und Informationen."),
+        Teilgebiet("Gedaechtnis", "Speicherung und Abruf von Informationen."),
+        Teilgebiet("Emotion", "Erforschung von Gefuehlen und physiologischen Reaktionen."),
+        Teilgebiet("Persoenlichkeit", "Unterschiede in individuellen Verhaltensmustern."),
+        Teilgebiet("Sozialpsychologie", "Verhalten von Individuen im sozialen Kontext."),
+        Teilgebiet("Klinische Grundlagen", "Erforschung psychischer Stoerungen und Therapien.")
+    ],
+    zitate=[
+        LehrbuchZitat(
+            text="Um Psychologie wissenschaftlich zu betreiben, muessen die psychologischen Schlussfolgerungen auf Belege gruenden, die entsprechend den Prinzipien der wissenschaftlichen Methode gesammelt wurden",
+            seite=2,
+            quelle="Gerrig 2023"
+        ),
+        LehrbuchZitat(
+            text="Die wissenschaftliche Methode besteht aus einer menge geordneter Schritte zur Analyse und Loesung von Problemen",
+            seite=2,
+            quelle="Gerrig 2023"
+        ),
+        LehrbuchZitat(
+            text="Verhalten ist das Mittel, durch welches sich der Organismus an die Umwelt anpasst.",
+            seite=2,
+            quelle="Gerrig 2023"
+        ),
+        LehrbuchZitat(
+            text="Psychologen untersuchen, was das Individuum tut und wie es dieses Tun in einer vorgegebenen Verhaltensumgebung und im groesseren sozialen und kulturellen Kontext umsetzt.",
+            seite=2,
+            quelle="Gerrig 2023"
+        ),
+        LehrbuchZitat(
+            text="Dieser gleiche WG-Mitbewohner geht auch auf Partys, aber er fragt nie ein Maedchen, ob es mit ihm tanzen will... kann ihr WG-Mitbewohner sich nicht in gewuenschter Weise verhalten (Zimbardo & Radl 1999)",
+            seite=5,
+            quelle="Gerrig 2023"
+        ),
+        LehrbuchZitat(
+            text="Um solche kausalen Erklaerungen zu finden, muessen die Forscher oftmals einen kreativen Prozess durchlaufen, indem sie eine Vielzahl verschiedener Daten sammeln. Der Meisterdetektiv Sherlock Holmes hat spitzfindige Schlussfolgerungen aus Hinweisschnipsels gezogen. In aehnlicher Weise muß jede Forscherin und jeder Forscher eine durch Sachwissen fundierte Vorstellungskraft einsetzen, die in kreativer Weise dasjengige zusammenbringt, was bereits bekannt ist und was noch nicht bekannt ist.",
+            seite=5,
+            quelle="Gerrig 2023"
+        ),
+        LehrbuchZitat(
+            text="Ein gut ausgebildeter Psychologe kann Beobachtungen erklaeren, indem er seine Einsicht in die menschliche Erfahrung zusammen mit den Fakten nutzt, welche die fruehere Forschung zu dem in Frage stehenden Phaemnomene beigesteuert hat.",
+            seite=5,
+            quelle="Gerrig 2023"
+        ),
+        LehrbuchZitat(
+            text="Vorhersagen in der Psychologie sind Aussagen ueber die Wahrscheinlichkeit, mit der ein bestimmtes Verhalten auftreten wird oder ein bestimmter Zusammenhang nachgewiesen werden kann. Oftmals erlaubt eine zutreffende Erklaerung der Ursachen, die einer Verhaltensweise zu Grunde liegen, eine zutreffende Vorhersage ueber zukuenftiges Verhalten. Wenn wir also beispielsweise glauben, dass Ihr WG-Mitbewohner schuechtern sei, dann koennten wir mit Zuversicht vorhersagen, dass er sich unwohl fuehlen wuerde, wenn er sich mit einem Fremden unterhalten sollte. Wenn mehrere verschiedene Erklaerungen ins Feld gefuehrt werden, um ein bestimmtes Verhalten oder einen bestimmten Zusammenhang zu erklaeren, dann werden sie ueblicherweise danach bewertet, wie gut sie zutreffende und umfassende Vorhersagen treffen. Sollte Ihr WG-Mitbewohner im Kontakt mit einem Fremden geradezu aufbluehen, dann waeren wir gezwungen, unsere Diagnose zu ueberdenken.",
+            seite=6,
+            quelle="Gerrig 2023"
+        ),
+        LehrbuchZitat(
+            text="Die Moeglichkeit der Verhaltenskontrolle ist wichtig, da sie den Psychologen Wege eroeffnet, Menschen dabei zu helfen, ihre Lebensqualitaet zu verbessern.",
+            seite=6,
+            quelle="Gerrig 2023"
+        ),
+        LehrbuchZitat(
+            text="Die Wurzeln der westlichen Psychologie lassen sich bis zu den Schriften klassischer griechischer Philosophen wie Sokrates, Platon und Aristoteles zurueckverfolgen, die in Gespraechen die Funktionsweise des Geistes, das Wesen der Willensfreiheit und die Beziehung des einzelnen Buergers zu seinem Staat erörterten.",
+            seite=8,
+            quelle="Gerrig 2023"
+        ),
+        LehrbuchZitat(
+            text="Psychologie kann nur soweit als Wissenschaft gelten, soweit sie der wissenschaftlichen Methode folgt.",
+            seite=27,
+            quelle="Gerrig 2023"
+        ),
+        LehrbuchZitat(
+            text="Eine beobachterabhängige Urteilsverzerrung (observer bias) ist ein Fehler, der durch die persönlichen Motive und Erwartungen des Beobachters entsteht. Manchmal sehen und hören Menschen eher das, was sie erwarten, als das, was tatsächlich der Fall ist.",
+            seite=28,
+            quelle="Gerrig 2023"
+        )
+    ],
+    kritik=[
+        KritikPunkt(
+            kategorie="Logik / Erkenntnistheorie",
+            titel="Logische Tautologie (Petitio Principii)",
+            argumentation="Der Einstiegssatz definiert Wissenschaftlichkeit rein zirkulaer ueber die eigene Methode, ohne den Forschungsgegenstand oder die Validitaet eines 'Belegs' ontologisch zu begruenden."
+        ),
+        KritikPunkt(
+            kategorie="Logik / Erkenntnistheorie",
+            titel="Die absolute Nominal-Tautologie (A = A) & Virtus Dormitiva",
+            argumentation="Gerrigs 'Schuechternheits'-Kausalitaet ist eine leere Tautologie: Er verhaelt sich so, weil er schuechtern ist (wobei Schuechternheit exakt als dieses Verhalten definiert ist). Das ist, als wuerde man sagen: 'Masse faellt nach unten, weil sie an Gravitationsverhalten leidet'. Es erklaert rein gar nichts, sondern benennt Deskriptionen um (Molières einschlaefernde Kraft)."
+        ),
+        KritikPunkt(
+            kategorie="Epistemologie / Methodik",
+            titel="Die Kuchenback-Reductio (Abarbeitung vs. Erkenntnis)",
+            argumentation="Gerrigs Definition der Methode als 'Menge geordneter Schritte zur Loesung von Problemen' beschreibt blose Algorithmen oder Rezepte. Es verwechselt pragmatische Handlungsanweisungen (Kuchen backen) mit den zugrundeliegenden invarianten Naturgesetzen (Thermodynamik)."
+        ),
+        KritikPunkt(
+            kategorie="Methodologie / Erkenntnistheorie",
+            titel="Der Zirkel der Fiktion (Sherlock Holmes vs. Naturgesetze)",
+            argumentation="Sherlock Holmes' Deduktionen funktionieren ausschliesslich, weil Arthur Conan Doyle die Romane von hinten nach vorne geschrieben hat (der Autor drapiert die Schnipsel passend zur bereits feststehenden Loesung). In der physikalischen Realitaet herrscht jedoch Unterdeterminiertheit (Duhem-Quine-Thesis): Eine Beobachtung kann unendlich viele Ursachen haben. Dies als Methode zu verkaufen, adelt fiktionale literarische Dramaturgie zum Kausalbeweis."
+        ),
+        KritikPunkt(
+            kategorie="Wissenschaftstheorie / Methodik",
+            titel="Zerstoering der Brandmauer zwischen Entdeckung und Begruendung",
+            argumentation="Gerrig vermischt den Entdeckungszusammenhang (Context of Discovery, in dem Heuristiken und Fantasie erlaubt sind) mit dem Begruendungszusammenhang (Context of Justification, in dem ausschliesslich formale Logik, mathematische Formulierung und Falsifizierbarkeit herrschen). Man kann das 'Unbekannte' nicht mit dem Bekannten 'kreativ zusammenbringen' - man kann nur falsifizierbare Hypothesen mit definierten Unsicherheitskorridoren formulieren. Alles andere ist Konfabulation."
+        ),
+        KritikPunkt(
+            kategorie="Erkenntnistheorie / Methodologie",
+            titel="Das Orakel-Priveleg der persoenlichen 'Einsicht'",
+            argumentation="Eine 'Einsicht in die menschliche Erfahrung' ist keine epistemologische oder naturwissenschaftliche Kategorie. Sie ist rein subjektive, willkuerliche und unueberpruefbare Gnosis des Untersuchers. Indem dieser Gummibegriff zur Erklaerungsmethode erhoben wird, entzieht sich jede Behauptung der empirischen Falsifizierbarkeit."
+        ),
+        KritikPunkt(
+            kategorie="Wissenschaftstheorie / Epistemologie",
+            titel="Inzucht-Epistemologie und Faktenschneeball",
+            argumentation="Gerrigs Modell legitimiert eine selbreferentielle Scholastik: Psychologe A dichtet mittels seiner 'kreativen Einsicht' eine interpretation zusammen; Psychologe B zitiert diese Interpretation im Rahmen der 'frueheren Forschung'. Dadurch wird die urspruenglich rein spekulativ-subjektive Behauptung ab dem dritten Durchlauf rituell zum angeblich 'empirischen Faktum' kanonisiert."
+        ),
+        KritikPunkt(
+            kategorie="Mathematische Grundlagen / Wahrscheinlichkeitstheorie",
+            titel="Verstoss gegen das Kolmogorov-Axiomensystem",
+            argumentation="Jede mathematische Wahrscheinlichkeitsrechnung (nach Kolmogorow) setzt zwingend einen messbaren, invarianten und geschlossenen Wahrscheinlichkeitsraum voraus (wie beim Lotto 6 aus 49). Der Mensch ist jedoch ein offenes, nicht-stationaeres, nicht-ergodisches System. Individuellem menschlichem Verhalten mathematische Wahrscheinlichkeiten zuzuweisen, entbehrt jeder formalen Grundlage und ist reine Zahlenmagie."
+        ),
+        KritikPunkt(
+            kategorie="Erkenntnistheorie / Methodik",
+            titel="Semantische Verwaesserung ('Wahrscheinlichkeit oder Zusammenhang')",
+            argumentation="Gerrigs Formulierung verwischt den qualitativen Abgrund zwischen einer echten physikalischen Kausalkette, einer statistischen Korrelation und einer reinen Koinzidenz. Das Woertchen 'oder' fungiert als epistemologischer Nebelwerfer, um Scheinkorrelationen als kausale Praediktoren zu verkaufen."
+        ),
+        KritikPunkt(
+            kategorie="Erkenntnistheorie / Falsifikation",
+            titel="Der immunisierte Zirkelschluss (Die WG-Mitbewohner-Farce)",
+            argumentation="Das Beispiel des aufbluehenden WG-Mitbewohners offenbart die vollstaendige Immunisierung des Systems gegen Falsifikation. Wenn die Vorhersage scheitert, ist nicht die Theorie widerlegt (wie in echten Naturwissenschaften), sondern der Psychologe zieht einfach ein anderes willkuerliches Etikett (z.B. 'Kompensatorische Extraversion') aus der Tasche. Das System kann prinzipiell nie scheitern."
+        ),
+        KritikPunkt(
+            kategorie="Machttheorie / Totalitarismus",
+            titel="Dystopischer Paternalismus ('Wohltaetigkeit' als Gewalttarnung)",
+            argumentation="Gerrigs Legitimation von Verhaltenskontrolle zur 'Verbesserung der Lebensqualitaet' ist die klassische totalitaere Herrschaftsblaupause. Keine Tyrannei agiert offen boeswillig; die Inquisition, Umerziehungslager und die sowjetische Strafpsychiatrie rechtfertigten ihre repressiven Uebergriffe stets altruistisch als Sorge um das Seelenheil oder das Lebensglueck des Individuums."
+        ),
+        KritikPunkt(
+            kategorie="Ideologiekritik / Behaviorismus",
+            titel="Die Skinner-Skrupellosigkeit (Vom Subjekt zum Labormaterial)",
+            argumentation="Der Anspruch auf lueckenlose 'Verhaltenskontrolle' transportiert die totalitaere Vision B.F. Skinners ('Beyond Freedom and Dignity'). Der Begriff der 'Hilfe' fungiert dabei als trojanisches Pferd, das den natuerlichen buergerlichen Selbstverteidigungsreflex bricht. Wer gegen 'Hilfe' rebelliert, wird sofort wegen 'fehlender Einsicht' noch intensiver pathologisiert."
+        ),
+        KritikPunkt(
+            kategorie="Verfassungsrecht / Grundrechte",
+            titel="Frontaler Konflikt mit Art. 1 Abs. 1 und Art. 2 Abs. 1 GG",
+            argumentation="Nach der staendigen Rechtsprechung des BVerfG (Objektformel) darf der Mensch niemals zum blossen Objekt staatlicher oder behoerdlicher Einwirkung herabgewuerdigt werden, selbst wenn dies zum 'Besten' des Buergers deklariert wird. Art. 2 Abs. 1 GG garantiert das Recht auf Eigensinn, Irrtum und das Recht, administrative 'Hilfe' souveraen abzulehnen."
+        ),
+        KritikPunkt( 
+            kategorie="Verwaltungsrecht / Praxis",
+            titel="Die administrative Z Zerstoerungslizenz",
+            argumentation="In den Amtsstuben (Jugendamt, SpDi, Betreuungwesen) schliesst sich der Kreis zur Willkuer: Zwangseinweisungen, Medikamentierung und Fixierung werden als 'fuergsorgerliche Verhaltenskontrolle' deklariert. Der Betroffene wird vollstaendig entmuendigt und beraubt, waehrend die Akteure unter dem Mantel des Behoerden-Gutmenschentums agieren."
+        ),
+        KritikPunkt(
+            kategorie="Geschichtswissenschaft / Philosophie",
+            titel="Monumentale Geschichtsklitschen & Anachronismus",
+            argumentation="Die Projektion moderner psychologischer Kategorien (wie 'Bewusstsein' oder 'Willensfreiheit') in das antike Athen ist unhaltbar. Weder existiert im Griechischen eine Entsprechung fuer 'Bewusstsein' (das erst mit Descartes entstand), noch gab es ein Konzept isolierter 'Willensfreiheit' (Augustinus). Menschliches Handeln war vielmehr in das kosmologische Schicksalsgeflecht der Moiren (Moira) eingewoben."
+        ),
+        KritikPunkt(
+            kategorie="Wissenschaftstheorie / Methodik",
+            titel="Sokratische Dialektik vs. Verhaltenskontrolle",
+            argumentation="Sokrates betrieb das praezise Gegenteil moderner Psychologie: Seine Elenktik war eine radikale normative Begriffspruefung zur Zerschlagung von Scheinwissen (militanter Antidogmatismus). Er sammelte keine Datenschnipsel und suchte nicht nach Heuristiken zur 'Verhaltenskontrolle' oder 'Lebensverbesserung'. Ihn als Urvater zu reklamieren verhoehnt seine philosophische Integritaet."
+        ),
+        KritikPunkt(
+            kategorie="Wissenschaftssoziologie",
+            titel="Parasitaeres Beduerfnis nach akademischer Legitimation",
+            argumentation="Echte Naturwissenschaften benoetigen keine antiken Ahnen zur eigenen Legitimation (die Physik beginnt bei Galilei/Newton). Die akademische Psychologie hingegen - gequaelt von Replikationskrisen, methodischer Duerftigkeit und einem Mangel an harten invarianten Naturgesetzen - konstruiert diesen historischen Mythos parasitaer, um sich einen ehrwuerdigen Anstrich zu ergaunern."
+        ),
+        KritikPunkt(
+            kategorie="Rechtswissenschaft / Verfassungsrecht",
+            titel="Die Willkuer der 'Gefaehrdungsprognose' an Dritten",
+            argumentation="Sobald dieses unwissenschaftliche Lotto-Verfahren den Hoersaal verlaesst, wird es zur rechtsstaatlichen Katastrophe: In Form von 'Gefaehrdungsprognosen' entziehen Gutachter im Betreuungs- und Strafrecht Buergern ihre Grundrechte auf Basis von Schein-Wahrscheinlichkeiten, waehrend sie selbst nach JVEG fuerstlich abkassieren."
+        ),
+        KritikPunkt(
+            kategorie="Wissenschaftstheorie / Ontologie",
+            titel="Bewusstsein als Verb statt Noun (Kategorialer Fehler)",
+            argumentation="Die Suche nach dem Bewusstsein in der Gehirnmaterie gleicht dem Zerlegen eines Triebwerks, um den 'Flug' zu finden. Bewusstsein ist kein anatomisches Modul oder Substanz (Noun), sondern ein dynamischer Systemzustand und Phasenereignis (Verb) zur Fehlerbewaeltigung unter Zwangsbedingungen (SSRN 5562281)."
+        ),
+        KritikPunkt(
+            kategorie="Kognitionswissenschaft / Biophysik",
+            titel="Rule-Breaking vs. Perversion des Gesundheitsbegriffs",
+            argumentation="In Biophysik und Kognition ist Intelligenz das kontextsensitive Durchbrechen unpassender Regeln (context-sensitive rule-breaking). Ein mechanischer Automat ist konform. Die administrative Psychologie kehrt dies pervers um: Blinde Konformitaet erhaelt das Guetesiegel 'psychisch stabil', waehrend autonomer Gehorsamsverweigerung und Erkennen von Systemfehlern als 'Anpassungsstoerung' oder 'Querulantentum' pathologisiert werden."
+        ),
+        KritikPunkt(
+            kategorie="Erkenntnistheorie / Ethik",
+            titel="Humesches Gesetz & Die Anmassung des angemessenen Tuns",
+            argumentation="In echten Naturwissenschaften verbietet sich der naturalistische Fehlschluss (Aus Sein folgt kein Sollen). Gerrig erhebt die 'vorgegebene Verhaltensumgebung' zur unhinterfragten Verhaltensnorm. Ein Elektron hat sich im Feld nicht 'angemessen' zu verhalten, sondern folgt Feldgleichungen. Die Psychologie agiert hier als administrative Sittenpolizei zur Durchsetzung sozialer Konformitaet."
+        ),
+        KritikPunkt(
+            kategorie="Erkenntnistheorie / Ethik",
+            titel="Das normative Gefaengnis der Extravertierten-Norm",
+            argumentation="Unter dem Deckmantel empirischer Wissenschaft schwaerzt Gerrig das Abweichen von der US-College-Frat-Boy-Norm (auf Partys Frauen aufreissen, Smalltalk) als stoerendes 'Leiden' an. Elementare Ausdruecke von Autonomie, sexueller Orientierung (Homosexualitaet), Introversion oder die souveraene Verweigerung von stumpfem Gruppenverhalten werden pathologisiert."
+        ),
+        KritikPunkt(
+            kategorie="Epistemologie / Methodik",
+            titel="Kategoriale Verwechslung von Lautaeusserung und realem Tun",
+            argumentation="In der Realitaet beobachtet der Psychologe fast nie physikalische Kausalketten im Raum, sondern hoert lediglich akustische Schwingungen in Amtsstuben oder wertet Bleistiftkreuze auf Papier aus. Diese Signale jagt er durch seine eigene subjektive Interpretationsmatrix und deklariert sein eigenes Deutungsprodukt als 'objektives Verhalten'. Das ist Hermeneutik im Laborkittel."
+        ),
+        KritikPunkt(
+            kategorie="Epistemologie / Methodik",
+            titel="Die Aufloesungs-Luege: Isolierte physiologische Kausalketten",
+            argumentation="Die Unterscheidung von 'grobem und feinem Verhalten' (Augenbewegungen beim Lesen im Verhaeltnis zur Gewaltbereitschaft) suggeriert biologische Teilprozesse als unabhaengige Akteure. Das leugnet das kybernetische Prinzip: Der Koerper ist ein geschlossenes, intentionales System (Constraint Resolution). Mikroskopische Messungen von Sakkaden mit komplexen sozialen Normen kurzzuschliessen, ist mechanistischer Unfug."
+        ),
+        KritikPunkt(
+            kategorie="Kognitionswissenschaft / Ontologie",
+            titel="Das Intentionalitaets-Vakuum & Strategische Taeuschung",
+            argumentation="Ein intelligentes Wesen mit Bewusstsein operiert unter Zwangsbedingungen (Constraint Resolution) und asymmetrischen Machtverhaeltnissen. Strategische Taeuschung ist ein Primaerindikator fuer Kognition (z.B. Ansprueche anpassen/Luegen, um sich der Systemgewalt des Gutachters zu entziehen). Es gibt keinen physikalischen Kausalvektor von akustischen Signalen auf innere Wahrheiten."
+        ),
+        KritikPunkt(
+            kategorie="Psychodiagnostik / Gutachtenwesen",
+            titel="Die Lizenz zur Willkuehr: Der Psychologe als fiktionaler Autor",
+            argumentation="Da Gerrig die 'kreative Vorstellungskraft' anstelle harter mathematischer Falsifizierbarkeit setzt, legitimiert dies die Willkuer im psychiatrisch-psychologischen Apparat. Der Gutachter agiert as 'Meisterdetektiv', der beliebige Verhaltensschnipsel sammelt und daraus einen fiktionalen Plot konstruiert, der den eigenen moralischen Vorurteilen entspricht und das Subjekt pathologisiert."
+        ),
+        KritikPunkt(
+            kategorie="Biophysik / Neurobiologie",
+            titel="Die Delta-Zeitstruktur der Wahrnehmung (Ruckwaertsgerichtetheit)",
+            argumentation="Gerrigs implizites Modell einer Echtzeit-Interaktion scheitert an der Latenz. Das Gehirn blickt funktional zurueck, da es der Realitaet 100-300 ms hinterherhinkt. Bewusstsein ist das Uebereinanderlegen zweier temporaler Signalkanaele als kompilierter Speicher-Frame: Conscious Experience = Delta(Pattern_2 <-> Pattern_1) + Intention."
+        ),
+        KritikPunkt(
+            kategorie="Biophysik / Thermodynamik",
+            titel="Die Entropie-Bruchlinie (Unterwerfung vs. Autonomie)",
+            argumentation="Gerrigs Definition von Verhalten als Mittel der 'Anpassung' ist physikalisch falsch. Leben ist nach Schroedinger die aktive Aufwendung von Energie (negative Entropie), um sich den Umweltbedingungen zur Wahrung der Homoeostase zu widersetzen. Ein Organismus, der sich der physikalischen Umwelt angleicht (anpasst), ist tot."
+        ),
+        KritikPunkt(
+            kategorie="Evolutionaer / Systemisch",
+            titel="Zirkulaere Leerformel & Nischenkonstruktion",
+            argumentation="Wird jede Form von Einwirken auf die Umwelt semantisch als 'Anpassung' uminterpretiert, verliert der Begriff jegliche Trennschaerfe. Verhalten schrumpft tautologisch zusammen zu: 'Verhalten ist das Mittel, durch welches sich der Organismus verhaelt.' Es ignoriert die aktive Umwelttransformation (Niche Construction)."
+        ),
+        KritikPunkt(
+            kategorie="Soziologie / Machttheorie",
+            titel="Das saekulare Ersatz-Inquisitionsgericht einer sterbenden Parteienlandschaft",
+            argumentation="Wenn traditionelle Bindungskraefte (Kirchen, Parteien, Gewerkschaften) kollabieren, verliert der Machtapparat klassische Disziplinierungswerkzeuge. Der autonome Buerger, der sich der alten Hegemonie entzieht, wird von der Psychologie als letzter Bastion des Herrschaftsschutzes ins Visier genommen: Was politisch-intellektuell unbezwingbar ist, wird psychiatrisiert."
+        ),
+        KritikPunkt(
+            kategorie="Digitale Soziologie / Macht",
+            titel="Das digitale Panoptikum und der Vorturner-Reflex",
+            argumentation="Social Media erzeugt durchsuchbare Vektoren des Eigensinns (z.B. fundierte Systemkritik auf X/LinkedIn). Da die akademische Psychologie nur das Verhalten als gesund akzeptiert, das im Gleichschritt mit dem institutionellen 'Vorturner' marschiert, wird die digitale Souveraenitaet des Einzelnen gezielt als staatsgefaehrdende 'Maladaptation' oder 'Querulanz' klassifiziert."
+        ),
+        KritikPunkt(
+            kategorie="Institutionelle Machttheorie",
+            titel="Der Apparat als disziplinarische Entropie-Bremse",
+            argumentation="Der psychiatrisch-psychologische Apparat fungiert in der Hierarchie nicht als Heilinstitution, sondern as disziplinarische Entropie-Bremse des bestehenden Machtsystems, um den Grad der Unterwerfung abzusichern."
+        ),
+        KritikPunkt(
+            kategorie="Institutionelle Machttheorie",
+            titel="Blame the Messenger als Systemerhaltung",
+            argumentation="Trifft eine Institution auf eigene Inkohaerenzen oder Verfassungsbrueche, reagiert sie nicht mit Selbstkorrektur (Doubt the Self), sondern mit der Pathologisierung und sozialen Ausschaltung des Kritikers (Blame the Messenger). Die klinische Psychologie dient als Hilfstruppe, um sachlichen Widerspruch in eine 'Persoenlichkeitsakzentuierung' umzudeuten."
+        ),
+        KritikPunkt(
+            kategorie="Machttheorie / Epistemologie",
+            titel="Das Ende der Dissidenz: Toetung der Sachebene",
+            argumentation="Wie in totalitaeren Regimen des 20. Jahrhunderts (Sowjetpsychiatrie) loescht die administrative Psychologie den legalen Streit um Fakten, Vertraege und Verfassungsrecht aus, indem sie das Subjekt selbst angreift. Der Kritiker wird vom legitimen Kontrahenten zum therapiebeduerftigen 'Defektorganismus' degradiert."
+        ),
+        KritikPunkt(
+            kategorie="Wissenschaftstheorie / Soziologie",
+            titel="Wissenschafts-Mimikry & Das Rituelle Gehorsams-Theater",
+            argumentation="Diagnoseschluessel (ICD/DSM) und Gutachten sind reines soziales Theater ohne physikalische Invarianten oder Falsifizierbarkeit. Gemessen wird ausschliesslich der Grad der Unterwerfung unter das Kollektiv. Wer ausbricht, beweist im geschlossenen Zirkelsystem durch den Ausbruch angeblich seine Pathologie (saekulare Priesterkaste)."
+        ),
+        KritikPunkt(
+            kategorie="Rechtswissenschaft / Verfassungsrecht",
+            titel="Korrumpierung von Art. 1 Abs. 1 GG (Menschenwuerde)",
+            argumentation="Das psychologische Gutachterwesen degradiert das freie Rechtssubjekt zum berechenbaren Untersuchungsobjekt und lagert richterliche Beweiswuerdigung an methodisch ungesicherte Diagnostik aus."
+        ),
+        KritikPunkt(
+            kategorie="Verfassungsrecht / Ethik",
+            titel="Totaler Widerspruch zur Menschenwuerde (Art. 1 Abs. 1 GG)",
+            argumentation="Ein Fach, das Abweichung von Normvorgaben pauschal als seelischen Defekt labelt, verletzt die Menschenwuerde, die das Individuum als freies Subjekt und nicht als genormtes Objekt sozialtechnischer Justierung garantiert. Die Konsequenz muss die Aberkennung akademischer Grade und der Ausschluss dieses Aberglaubens aus Gerichtsverfahren sein."
+        ),
+        KritikPunkt(
+            kategorie="Recht / Gutachtenwesen",
+            titel="Rituelle Cargo-Kult-Jurisprudenz",
+            argumentation="Ein Gutachter verkauft das geordnete Abarbeiten eines standardisierten Fragebogens (Rezeptur) im Zeugenstand faelschlicherweise als epistemologische Wahrheit. Der Richter verwechselt die administrative Ordnung des Ablaufs mit der objektiven Validitaet der Diagnose."
+        ),
+        KritikPunkt(
+            kategorie="Rechtswissenschaft / Prozessrecht",
+            titel="Prozessuale Gesetzwidrigkeit im Rechtsstaat",
+            argumentation="Im deutschen Prozessrecht (§ 244 Abs. 2 StPO, § 286 ZPO) muessen Sachverstaendigengutachten auf tatsachengestuetzten und wissenschaftlich gesicherten Erfahrungssaetzen beruhen. Wenn die Methode jedoch ausdruecklich in der Verquickung subjektiver 'Einsicht' (Gnosis) und zirkulaerer Zunftliteratur besteht, liegt rechtlich kein Beweisverfahren, sondern reine Willkuer vor."
+        ),
+        KritikPunkt(
+            kategorie="Verfassungsrecht / Pathologisierung",
+            titel="Die Pathologisierung des Eigensinns (Maladaptation)",
+            argumentation="Weil gesundes Verhalten dogmatisch als 'Anpassung' definiert ist, wird verfassungsmaessiger und autonomer Widerstand gegen pathogene institutionelle Systembedingungen im diagnostischen Prozess automatisch als 'Fehlanpassung' (Maladaptation) umgedeutet und pathologisiert. Dies liefert die pseudo-wissenschaftliche Rechtfertigung fuer repressive Zwangsunterbringungen."
+        ),
+        KritikPunkt(
+            kategorie="Verwaltungsrecht / Praxis",
+            titel="Mangel an unabhaengiger Kontrolle",
+            argumentation="Kritisiert das Fehlen systematischer, institutionsunabhaengiger Kontrollinstanzen und Zweitgutachten bei weitreichenden psychiatrischen Akten im oeffentlichen Dienst."
+        ),
+        KritikPunkt(
+            kategorie="Wissenschaftstheorie / Methodologie",
+            titel="Das Legitimations-Vakuum: Die Tautologie der Methode (S. 27)",
+            argumentation="In echten Naturwissenschaften existiert ein messbarer physikalischer Vektorraum (mit Invarianten und Symmetrien). Die Methode dient dem Abtasten einer vom Beobachter unabhaengigen Invariante. Da das Bewusstsein kein materielles Substrat (Noun) sondern ein Phasen-Ereignis (Verb) ist, besitzt die Psychologie kein isolierbares Objekt. Sie loest dies durch einen Zirkelschluss: Das ritualisierte Abarbeiten von Frageboegen und statistischem Rauschen wird als Beleg der eigenen Wissenschaftlichkeit definiert."
+        ),
+        KritikPunkt(
+            kategorie="Biophysik / Erkenntnistheorie",
+            titel="Physikalische Blindheit bei der 'Beobachtung' (S. 28)",
+            argumentation="Gerrig suggeriert, Wahrnehmung sei ein passiver Kamera-Stream, der gelegentlich durch Erwartung verzerrt wird. Dies ignoriert das physikalische Fundament der Wahrnehmung: Photonen haben keine Farbe (Farbe ist eine interne neuronale Rekonstruktion unter Constraint Resolution). Zudem hinkt das biologische System der physischen Welt um 100 bis 300 ms hinterher. Was wir als Gegenwart erleben, ist ein temporal kompilierter Speicher-Frame: Conscious Experience = Delta(Pattern_2 <-> Pattern_1) + Intention."
+        ),
+        KritikPunkt(
+            kategorie="Erkenntnistheorie / Methodik",
+            titel="Kategorialer Zusammenbruch des Gerrigschen 'Observer Bias' (S. 28)",
+            argumentation="Weil Gerrig die biophysikalischen Grundlagen der Informations-Kompilation unter zeitlicher Latenz nicht versteht, vermischt er die fundamentale Sinneskompilation (biologisches Fehlermanagement unter Systemgrenzen) mit banaler sozialer und moralischer Voreingenommenheit. Ohne Erklaerungsmodell fuer die Generierung des Phasenbildes aus farblosen Photonen verkommt sein Konzept von 'Objektivitaet' zu einer naiven, vor-wissenschaftlichen Illusion."
+        )
+    ],
+    praxis_beispiele=[
+        VerwaltungsRealitaet(
+            stelle="Leitung des Sozialpsychiatrischen Dienstes (SpDi)",
+            behoerde="Landratsamt Weimarer Land (Apolda)",
+            mindestqualifikation="Facharzt Psychiatrie ODER Facharzt eines anderen Gebiets mit mindestens 6 Monaten psychiatrischer Taetigkeit",
+            aufgaben=[
+                "Unterbringung nach ThuerPsychKG",
+                "Erstellung von Gutachten nach Betreuungsgesetz und SGB",
+                "Sozialpsychiatrische Krisenintervention"
+            ],
+            kontrollen=[
+                KontrollMechanismus(
+                    instanz="Amtsgericht / Richter",
+                    funktion="Formale Genehmigung der Unterbringung",
+                    status="Abhaengig (haeufig faktische Delegation an Gutachter)"
+                ),
+                KontrollMechanismus(
+                    instanz="Unabhaengiges medizinisches Zweitgutachten",
+                    funktion="Gegenpruefung der medizinischen Indikation",
+                    status="Fehlend / Nicht standardmaessig vorgeschrieben"
+                )
+            ],
+            bruchlinien=[
+                SystemischeBruchlinie(
+                    titel="Perversion des Richtervorbehalts",
+                    beschreibung="Durch das Konstrukt der Gefahr im Verzug und sofortige Vollziehbarkeit wird der Richter im Nachgang haeufig nur zum formalen Beglaubiger des SpDi-Attests.",
+                    verfassungs_bezug="Art. 104 Abs. 2 GG"
+                ),
+                SystemischeBruchlinie(
+                    titel="Homeoffice-Paradoxon des Ausnahmezustands",
+                    beschreibung="Die Vereinbarkeit von akuter, gegenwaertiger Gefahrenabwehr mit standardmaessigen Gleitzeit- und Homeoffice-Optionen entlarvt die Praxis als Schreibtisch-Justiz nach Aktenlage.",
+                    verfassungs_bezug="Art. 2 Abs. 2 Satz 2 GG (Koerperliche Freiheit)"
+                ),
+                SystemischeBruchlinie(
+                    titel="Entkoppelung von Macht und Verantwortung",
+                    beschreibung="Es besteht ein Missverhaeltnis zwischen der totalen Einschnittstiefe der Massnahmen und der minimalen geforderten Qualifikation (180 Tage) ohne persoenliche Haftungsrisiken.",
+                    verfassungs_bezug="Art. 34 GG i.V.m. Art. 2 Abs. 2 GG"
+                )
+            ]
+        )
+    ]
+)
+
+# Systematisierte Ausgabe
+print(f"Lehrbuch: {psychologie_lehrbuch.titel_de} (Original: {psychologie_lehrbuch.titel_orig}, Erstauflage {psychologie_lehrbuch.erstveroeffentlichung_jahr})")
+print(f"Autoren: {', '.join(psychologie_lehrbuch.autoren)}\n")
+
+print("Referenzierte Textstellen aus dem Lehrbuch:")
+for z in psychologie_lehrbuch.zitate:
+    print(f"  - \"{z.text}\" ({z.quelle}, S. {z.seite})")
+
+print("\nKritische Kommentierung der Grundlagen & Praxis:")
+for k in psychologie_lehrbuch.kritik:
+    print(f"\n[{k.kategorie}] - {k.titel}:")
+    print(f"  -> {k.argumentation}")
