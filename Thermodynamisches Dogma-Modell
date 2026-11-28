@@ -1,0 +1,58 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. Erstellung der formalen Kontrast-Matrix (Thermodynamisches Dogma-Modell)
+kontrast_daten = {
+    "Kriterium / Dimension": [
+        "1. Beobachtetes Phaenomen",
+        "2. Systemgrenze / Fokus",
+        "3. Erklaerung fuer das Ausbleiben der Zustandsaenderung",
+        "4. Bewertung des Objekt-Verhaltens (H2O / Mensch)",
+        "5. Vorgeschlagene Korrektur / Intervention",
+        "6. Erkenntnistheoretische Konsistenz (Falsifizierbarkeit)"
+    ],
+    "Objektive Physik (Thermodynamik)": [
+        "Wasser verharrt bei 70 Grad Celsius; kein Phasenuebergang zu Wasserdampf.",
+        "Offenes System: Analyse der zugefuehrten Energie (Enthalpie) durch die externe Quelle (Herdplatte).",
+        "Physikalisch exakte Entropie-Reaktion auf verminderte Energiezufuhr (Heizplatte liefert zu wenig Watt).",
+        "100% gesund und gesetzeskonform. Die Molekuele schwingen exakt gemaess dem thermodynamischen Input.",
+        "Reparatur der externen Energiequelle (Heizspirale austauschen, Spannung auf 230V erhoehen).",
+        "Absolut gegeben (Popper). Gesetzmaessigkeiten sind experimentell reproduzierbar und mathematisch bewiesen."
+    ],
+    "Dogmatische Psychologie (Zirkulaeres Framing)": [
+        "Wasser 'verweigert' den Phasenuebergang trotz Betaetigung des Einschalt-Knopfes.",
+        "Geschlossenes System: Isolierter Blick auf das Objekt (Wasser), vollstaendige Ausblendung der Umgebung.",
+        "Inhaerente Verhaltensstoerung, mangelnde Motivation oder 'mangelnde Kooperationsbereitschaft' des Wassers.",
+        "Pathologisch, dysfunktional, 'therapiebeduerftig', 'entwicklungszoegert' oder 'resilienzschwach'.",
+        "Therapeutisches Einwirken auf das Wasser; Motivationscoaching zur Erhoehung der Eigen-Siedetemperatur.",
+        "Nicht existent. Kritik am Versuchsaufbau wird als 'Symptom der Widerstandshaltung' re-diagnostiziert."
+    ]
+}
+
+df_thermo_kontrast = pd.DataFrame(kontrast_daten)
+pd.set_option('display.max_colwidth', None)
+
+print("=== FORMALE KONTRAST-MATRIX: THERMODYNAMIK VS. DOGMATISCHE PSYCHOLOGIE ===")
+display(df_thermo_kontrast)
+
+# 2. Mathematische Veranschaulichung der Systemantwort
+t = np.linspace(0, 10, 100) 
+# Reale Systemantwort: Gedeckelt durch mangelnde Energiezufuhr (70 Grad)
+temp_physik = 20 + 50 * (1 - np.exp(-0.5 * t))
+# Psychologische Wunschnorm: Unbedingtes Sieden bei 100 Grad erwartet
+temp_erwartung = 20 + 80 * (1 - np.exp(-0.5 * t))
+
+plt.figure(figsize=(12, 5))
+plt.plot(t, temp_physik, color="teal", linewidth=3, label="Realer Zustand (Proportional zur Energie)")
+plt.plot(t, temp_erwartung, color="red", linestyle="--", linewidth=2, label="Verhaltensempfehlung/Soll-Wert (Psychologische Norm)")
+plt.axhline(y=70, color="orange", linestyle=":", label="Maximale Energiekapazitaet der defekten Umwelt")
+plt.fill_between(t, temp_physik, temp_erwartung, color="red", alpha=0.1, label="Bereich der 'pathologisierten Stoerung' (Fehldiagnose)")
+
+plt.title("Die thermodynamische Bruchstelle: Reale Energiebilanz vs. Normatives Dogma", fontsize=12, fontweight="bold")
+plt.xlabel("Zeit (t)")
+plt.ylabel("Systemzustand (Temperatur)")
+plt.legend(loc="lower right")
+plt.grid(True, linestyle=":", alpha=0.6)
+plt.tight_layout()
+plt.show()
