@@ -1,0 +1,78 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+class GewerbeVsGutachterModell:
+    """
+    Modelliert den Unterschied zwischen freiwilligem, praktischem Handwerk (Hospiz, Chiropraktik)
+    und der ungerechtfertigten juristisch-staatlichen Machtbefugnis der Psychologie.
+    """
+    def __init__(self):
+        self.kriterien = [
+            "1. Primaerer Charakter",
+            "2. Grundlage der Praxis",
+            "3. Rolle des Klienten/Buergers",
+            "4. Staatliches Gewaltmonopol",
+            "5. Gerichtliche Sachverstaendigkeit",
+            "6. Universitaerer Status"
+        ]
+        
+    def erstelle_vergleichs_matrix(self) -> pd.DataFrame:
+        return pd.DataFrame({
+            "Dimension": self.kriterien,
+            "Praktisches Gewerbe (Hospiz / Chiropraktik)": [
+                "Erfahrungsbasiertes Handwerk, Beistand & Begleitung.",
+                "Subjektives Wohlbefinden, Schmerzlinderung, Sterbebegleitung.",
+                "Freiwilliger Vertragspartner (Kann die Dienstleistung jederzeit ablehnen).",
+                "Nein. Keine rechtliche Befugnis zur Freiheitsentziehung.",
+                "Nein. Keine Zulassung fuer Schuld- oder Prognosegutachten bei Mordprozessen.",
+                "Keine Anerkennung als Grundlagenwissenschaft; rein praxisbezogene Ausbildung."
+            ],
+            "Dogmatische Psychologie (Als 'Wissenschaft')": [
+                "Erfahrungsbasiertes Handwerk, das sich als Naturwissenschaft tarnt.",
+                "Nicht-falsifizierbare, zirkulaere Narrative und Erwartungsnormen.",
+                "Zwangsproband / Patient (Bei Widerspruch droht Diagnose 'mangelnde Krankheitseinsicht').",
+                "Ja. Enge Verzahnung mit Massregelvollzug, Psychiatrie & Familiengerichten.",
+                "Ja. Entscheidet massgeblich ueber Schuldfaehigkeit, Haftentlassung und Sorgerecht.",
+                "Missbrauchter Status als universitaere Wissenschaft trotz fehlender exakter Messbarkeit."
+            ]
+        })
+
+# Instanziierung
+modell_gewerbe = GewerbeVsGutachterModell()
+df_gewerbe_matrix = modell_gewerbe.erstelle_vergleichs_matrix()
+
+# --- Visualisierung der verfassungsrechtlichen Schieflage ---
+labels = ['Freiwilliger Beistand\n(Hospiz/Heiler)', 'Klinische Psychotherapie\n(Kunde freiwillig)', 'Klinische Psychologie\n(Forensik/Zwang)']
+macht_index = [0.0, 0.2, 1.0] # Willkuerlicher Macht- und Zwangseinfluss
+wissenschafts_charakter = [0.1, 0.2, 0.2] # Tatsaechliche exakte Wissenschaftlichkeit
+
+x = np.arange(len(labels))
+width = 0.35
+
+fig, ax = plt.subplots(figsize=(12, 6))
+rects1 = ax.bar(x - width/2, macht_index, width, label='Staatliche Zwangsgewalt / Justiz-Macht', color='crimson', alpha=0.8)
+rects2 = ax.bar(x + width/2, wissenschafts_charakter, width, label='Exakter Wissenschaftsgrad (Falsifizierbarkeit)', color='teal', alpha=0.8)
+
+ax.set_ylabel('Indexwert (normiert)')
+ax.set_title('Die verfassungsrechtliche Asymmetrie: Wissenschaftlicher Gehalt vs. Juristische Macht', fontsize=12, fontweight='bold')
+ax.set_xticks(x)
+ax.set_xticklabels(labels)
+ax.set_ylim(0, 1.3)
+ax.legend()
+ax.grid(True, linestyle=':', alpha=0.6)
+
+# Warn-Annotation fuer den systemischen Fehler
+ax.annotate('Systemischer Fehltritt:\nGewaltbefugnis ohne\nobjektive Beweiskraft!', 
+            xy=(2, 1.0), xytext=(1.0, 1.1),
+            arrowprops=dict(facecolor='black', shrink=0.08, width=1, headwidth=6),
+            fontsize=10, fontweight='bold', color='darkred',
+            bbox=dict(facecolor='white', alpha=0.85, edgecolor='red'))
+
+plt.tight_layout()
+plt.show()
+
+# Anzeige der Matrix
+pd.set_option('display.max_colwidth', None)
+print("=== RECHTSSTAATLICHE ANALYSE: DIENSTLEISTUNG VS. ZWANGS-MONOPOL ===")
+display(df_gewerbe_matrix)
