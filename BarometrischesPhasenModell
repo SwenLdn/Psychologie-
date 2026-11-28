@@ -1,0 +1,104 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+class BarometrischesPhasenModell:
+    """
+    Modelliert das p-T-Phasendiagramm von H2O (Siedekurve) mittels der
+    Clausius-Clapeyron-Gleichung und vergleicht es mit dem eindimensionalen
+    Wunsch-Framing der Psychologie.
+    """
+    def __init__(self):
+        # Universelle Gaskonstante und Verdampfungsenthalpie fuer Wasser
+        self.R = 8.314  # J/(mol*K)
+        self.Delta_H_vap = 40650  # J/mol (Verdampfungsenthalpie)
+        self.T_ref = 373.15  # Referenztemperatur (100 °C in Kelvin)
+        self.p_ref = 101325  # Referenzdruck (1 atm = 1013.25 hPa)
+
+    def berechne_siedetemperatur(self, p_pascal: np.ndarray) -> np.ndarray:
+        """
+        Berechnet die Siedetemperatur in Celsius fuer einen gegebenen Druck p
+        unter Verwendung der integrierten Clausius-Clapeyron-Gleichung.
+        """
+        # 1/T = 1/T_ref - (R / Delta_H_vap) * ln(p / p_ref)
+        inv_T = (1.0 / self.T_ref) - (self.R / self.Delta_H_vap) * np.log(p_pascal / self.p_ref)
+        T_kelvin = 1.0 / inv_T
+        return T_kelvin - 273.15  # Umrechnung in °C
+
+# Instanziierung des physikalischen Modells
+modell_phase = BarometrischesPhasenModell()
+
+# Druckbereiche simulieren (von fast Vakuum bis Ueberdruck, in Pascal)
+druck_spektrum = np.logspace(1.5, 6.0, 500)  # 31 Pa bis 1 MPa
+siede_temp = modell_phase.berechne_siedetemperatur(druck_spektrum)
+
+# Reale Umgebungen (Referenzpunkte)
+umgebungen = {
+    "Vakuum / Labor": {"druck": 50.0, "farbe": "darkviolet", "marker": "o"},
+    "Mars-Oberflaeche": {"druck": 600.0, "farbe": "red", "marker": "X"},
+    "Mount Everest (Gipfel)": {"druck": 31500.0, "farbe": "blue", "marker": "^"},
+    "Erde (Meereshoehe)": {"druck": 101325.0, "farbe": "teal", "marker": "s"},
+    "Schnellkochtopf (2 bar)": {"druck": 200000.0, "farbe": "darkgreen", "marker": "d"}
+}
+
+# --- Visualisierung des Phasendiagramms vs. Dogmatische Norm ---
+plt.figure(figsize=(14, 8))
+plt.plot(siede_temp, druck_spektrum / 100.0, color="black", linewidth=3, label="Reale physikalische Siedekurve (Clausius-Clapeyron)")
+
+# Einzeichnen der realen Szenarien
+for name, daten in umgebungen.items():
+    t_siede = modell_phase.berechne_siedetemperatur(daten["druck"])
+    plt.scatter(t_siede, daten["druck"] / 100.0, color=daten["farbe"], s=120, 
+                marker=daten["marker"], zorder=5, label=f"{name} (Siedetemp: {t_siede:.1f} °C)")
+
+# Die psychologische Starrachse: Erwartet immer Sieden bei 100 °C unabhängig vom Druck
+plt.axvline(x=100.0, color="crimson", linestyle="--", linewidth=2.5, label="Dogmatische Erwartungsnorm (Psychologie: 'Es muss bei 100°C kochen!')")
+
+# Graphik-Schnitt-Verschönerungen
+plt.yscale("log")
+plt.title("Epistemologische Phasen-Divergenz: Physikalisches Feld-Modell vs. Psychologisches Dogma", fontsize=13, fontweight="bold")
+plt.xlabel("Temperatur (Celsius)", fontsize=11)
+plt.ylabel("Umgebungsdruck / Atmosphaere (hPa, logarithmisch)", fontsize=11)
+plt.grid(True, which="both", linestyle=":", alpha=0.5)
+plt.xlim(-10, 150)
+plt.ylim(0.3, 5000.0)
+
+# Annotation des epistemologischen Irrtums
+plt.text(5, 5, "Mars-Szenario:\n'Aggressives Frueh-Sieden bei 5°C'\n-> Psychologische Diagnose:\nCholerische Impulsstoerung!", 
+         color="red", fontsize=9, fontweight="bold", bbox=dict(facecolor='white', alpha=0.85, edgecolor='red'))
+plt.text(103, 15, "Erd-Normal-Zustand:\nEinziger Punkt, an dem\ndas Dogma zufaellig stimmt!", 
+         color="teal", fontsize=9, fontweight="bold", bbox=dict(facecolor='white', alpha=0.85, edgecolor='teal'))
+
+plt.legend(loc="upper left", fontsize=10)
+plt.tight_layout()
+plt.show()
+
+# --- Formale Audit-Tabelle des barometrischen Systemfehlers ---
+df_druck_audit = pd.DataFrame({
+    "Systemvariable": [
+        "1. Lokaler Parameter (Atmosphaerischer Druck)",
+        "2. Ursache fuer unkonventionellen Siedepunkt",
+        "3. Diagnose bei Mars-Bedingungen (Vakuum)",
+        "4. Diagnose bei Mount Everest Bedingungen",
+        "5. Analogie auf den Menschen",
+        "6. Loesungsansatz des Systems"
+    ],
+    "Reales physikalisches Systemverhalten": [
+        "Variabel. Bestimmt direkt den energetisch moeglichen Aggregatzustand.",
+        "Exakte Befolgung der Clausius-Clapeyron-Relation.",
+        "Sieden bei ca. 6 °C ist die absolut fehlerfreie thermodynamische Antwort.",
+        "Sieden bei 70 °C ist physikalisch erzwungen, da die Atmosphaere die Energie nicht halten kann.",
+        "Extremer Druck (Notlage) oder soziales Vakuum verschieben Phasenuebergaenge (Weinen/Kollaps) gesetzmaessig.",
+        "Anpassung der Umgebung oder Akzeptanz des barometrischen Feldes."
+    ],
+    "Dogmatisch-psychologische Fehldeutung": [
+        "Vollstaendig ignoriert. Meereshoehe wird als universelle Konstante halluziniert.",
+        "Inhaerenter Defekt oder Stoerung der Molekuele ('Leistungsverweigerung').",
+        "'Affektinkontinenz', 'mangelnde Frustrationstoleranz' (Kocht viel zu frueh).",
+        "'Entwicklungsverzoegerung', 'Inkonsequente Energieumsetzung' (Erreicht die 100 °C nie).",
+        "Pathologisierung der exakten Notbremsreaktion des menschlichen Koerpers als Geisteskrankheit.",
+        "Aufforderung an das H2O, sich trotz Vakuum doch bitte wie bei 1 bar zu verhalten (Resilienz-Coaching)."
+    ]
+})
+
+display(df_druck_audit)
